@@ -42,4 +42,32 @@
         android:layout_below="@+id/yAccText"
         android:layout_alignLeft="@+id/yAccText"
         android:layout_alignStart="@+id/yAccText" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Acceleration:"
+        android:id="@+id/accLabel"
+        android:layout_alignTop="@+id/xAccText"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pressure"
+        android:id="@+id/presLable"
+        android:layout_below="@+id/zAccText"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="P"
+        android:id="@+id/pressText"
+        android:layout_below="@+id/presLable"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="27dp" />
 </RelativeLayout>

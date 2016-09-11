@@ -22,9 +22,11 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
 
-    private TextView XAccText, yAccText, zAccText;
+    private TextView XAccText, yAccText, zAccText, presText;
     private Sensor accSensor;
-    private SensorManager sm;
+    private Sensor presSensor;
+    private SensorManager accSM;
+    private SensorManager presSM;
 
 
     @Override
@@ -44,18 +46,22 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         });
 
         //get our Sensor Mananger
-        sm = (SensorManager) getSystemService(SENSOR_SERVICE);
+        accSM = (SensorManager) getSystemService(SENSOR_SERVICE);
+        presSM = (SensorManager) getSystemService(SENSOR_SERVICE);
 
-        //Accelerometer Sensor
-        accSensor = sm.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        //Assign Sensors
+        accSensor = accSM.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        presSensor = presSM.getDefaultSensor(Sensor.TYPE_PRESSURE);
 
         //Register Sensor Listener
-        sm.registerListener(this, accSensor, SensorManager.SENSOR_DELAY_NORMAL);
+        accSM.registerListener(this, accSensor, SensorManager.SENSOR_DELAY_NORMAL);
+        presSM.registerListener(this, presSensor,SensorManager.SENSOR_DELAY_NORMAL);
 
         //Assign TextView
         XAccText = (TextView) findViewById(R.id.xAccText);
         yAccText = (TextView) findViewById(R.id.yAccText);
         zAccText = (TextView) findViewById(R.id.zAccText);
+        presText = (TextView) findViewById(R.id.pressText);
 
     }
 
@@ -69,6 +75,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         XAccText.setText("X: " + event.values[0]);
         yAccText.setText("Y: " + event.values[1]);
         zAccText.setText("Z: " + event.values[2]);
+        presText.setText(event.values[0] + " hPa");
     }
 
     @Override
