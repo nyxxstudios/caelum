@@ -15,5 +15,30 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="X"
+        android:id="@+id/xAccText"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="73dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Y"
+        android:id="@+id/yAccText"
+        android:layout_below="@+id/xAccText"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Z"
+        android:id="@+id/zAccText"
+        android:layout_below="@+id/yAccText"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="27dp" />
 </RelativeLayout>
