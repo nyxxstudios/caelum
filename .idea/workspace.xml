@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4b05fad6-30a7-4d61-bc40-12d59883a1a7" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.gitignore" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/README.md" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Caelum/.idea/misc.xml" afterPath="$PROJECT_DIR$/Caelum/.idea/misc.xml" />
     </list>
     <ignored path="caelum.iws" />
     <ignored path=".idea/workspace.xml" />
