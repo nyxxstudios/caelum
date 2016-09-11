@@ -2,6 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4b05fad6-30a7-4d61-bc40-12d59883a1a7" name="Default" comment="">
+<<<<<<< HEAD
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Caelum/.idea/misc.xml" afterPath="$PROJECT_DIR$/Caelum/.idea/misc.xml" />
+=======
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Caelum/.idea/compiler.xml" afterPath="$PROJECT_DIR$/Caelum/.idea/compiler.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Caelum/.idea/encodings.xml" afterPath="$PROJECT_DIR$/Caelum/.idea/encodings.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Caelum/.idea/gradle.xml" afterPath="$PROJECT_DIR$/Caelum/.idea/gradle.xml" />
@@ -9,6 +12,7 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Caelum/.idea/modules.xml" afterPath="$PROJECT_DIR$/Caelum/.idea/modules.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Caelum/.idea/runConfigurations.xml" afterPath="$PROJECT_DIR$/Caelum/.idea/runConfigurations.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+>>>>>>> refs/remotes/origin/master
     </list>
     <ignored path="caelum.iws" />
     <ignored path=".idea/workspace.xml" />
