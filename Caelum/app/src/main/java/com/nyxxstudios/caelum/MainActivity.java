@@ -9,7 +9,23 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class MainActivity extends AppCompatActivity {
+//Sensor classes
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+
+import android.widget.TextView;
+
+
+
+
+public class MainActivity extends AppCompatActivity implements SensorEventListener {
+
+    private TextView XAccText, yAccText, zAccText;
+    private Sensor accSensor;
+    private SensorManager sm;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +42,33 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+        //get our Sensor Mananger
+        sm = (SensorManager) getSystemService(SENSOR_SERVICE);
+
+        //Accelerometer Sensor
+        accSensor = sm.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+
+        //Register Sensor Listener
+        sm.registerListener(this, accSensor, SensorManager.SENSOR_DELAY_NORMAL);
+
+        //Assign TextView
+        XAccText = (TextView) findViewById(R.id.xAccText);
+        yAccText = (TextView) findViewById(R.id.yAccText);
+        zAccText = (TextView) findViewById(R.id.zAccText);
+
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+        // Not in Use
+    }
+
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+        XAccText.setText("X: " + event.values[0]);
+        yAccText.setText("Y: " + event.values[1]);
+        zAccText.setText("Z: " + event.values[2]);
     }
 
     @Override
@@ -49,4 +92,5 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
 }
