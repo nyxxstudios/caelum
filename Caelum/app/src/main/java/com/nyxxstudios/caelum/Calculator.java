@@ -5,9 +5,10 @@ package com.nyxxstudios.caelum;
  */
 public class Calculator {
 
-    //this method is called every X seconds and saves all current sensor values
-    //
-    public static void logData(){
-
+    //this method is called every X seconds and returns a SensorValue object, which contains
+    //information about current sensor states (e. g. acceleration, barometer, gps)
+    public static SensorValue currentSensorResults(){
+        SensorValue result = new SensorValue();
+        return result;
     }
 }
