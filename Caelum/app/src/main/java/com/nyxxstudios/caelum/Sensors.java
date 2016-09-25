@@ -31,11 +31,11 @@ public class Sensors implements SensorEventListener {
         return pressure;
     }
 
-    public double getAcceleration() {
+    public double[] getAcceleration() {
         Sensor accSensor;
         SensorManager accSM;
 
-        acceleration = new double[3];
+        double[] acceleration = new double[3];
         //get our Sensor Mananger
         accSM = (SensorManager) mainActivity.getSystemService(Context.SENSOR_SERVICE);
         //Assign Sensors
