@@ -72,10 +72,15 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     @Override
     public void onSensorChanged(SensorEvent event) {
-        XAccText.setText("X: " + event.values[0]);
-        yAccText.setText("Y: " + event.values[1]);
-        zAccText.setText("Z: " + event.values[2]);
-        presText.setText(event.values[0] + " hPa");
+        Sensor sensor = event.sensor;
+        if (sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
+            XAccText.setText("X: " + event.values[0]);
+            yAccText.setText("Y: " + event.values[1]);
+            zAccText.setText("Z: " + event.values[2]);
+        }
+        else if (sensor.getType() == Sensor.TYPE_PRESSURE) {
+            presText.setText(event.values[0] + " hPa");
+        }
     }
 
     @Override
