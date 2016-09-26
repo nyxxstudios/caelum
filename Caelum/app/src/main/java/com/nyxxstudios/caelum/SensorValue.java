@@ -2,9 +2,6 @@ package com.nyxxstudios.caelum;
 
 import android.icu.text.SimpleDateFormat;
 import android.icu.util.Calendar;
-import android.widget.Toast;
-
-import java.util.Date;
 
 /**
  * Created by Jonas on 25.09.2016.
@@ -31,15 +28,18 @@ public class SensorValue {
         return pressure;
     }
 
-    private double heigth;//is calculated based on the current pressure
-    public double getHeigth() {
-        return heigth;
+    private double height;//is calculated based on the current pressure
+    public double getHeight() {
+        return height;
     }
 
 
     //constructor. Defines variables with sensor values
     public SensorValue(){
         time = currentDateAndTime(); //UTC
+        accelerationValues = new double[]{0,0,0}; //for testing, replace with function from Sensors.java
+        pressure = 1013.0;                        //for testing, replace with function from Sensors.java
+        height = 0.0;                             //for testing, replace with function from Sensors.java
 
     }
 
