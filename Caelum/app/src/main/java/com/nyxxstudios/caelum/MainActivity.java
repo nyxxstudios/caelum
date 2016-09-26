@@ -45,23 +45,26 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             }
         });
 
-        //get our Sensor Mananger
-        accSM = (SensorManager) getSystemService(SENSOR_SERVICE);
-        presSM = (SensorManager) getSystemService(SENSOR_SERVICE);
 
-        //Assign Sensors
-        accSensor = accSM.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        presSensor = presSM.getDefaultSensor(Sensor.TYPE_PRESSURE);
+        startLogging();
 
-        //Register Sensor Listener
-        accSM.registerListener(this, accSensor, SensorManager.SENSOR_DELAY_NORMAL);
-        presSM.registerListener(this, presSensor,SensorManager.SENSOR_DELAY_NORMAL);
-
-        //Assign TextView
-        XAccText = (TextView) findViewById(R.id.xAccText);
-        yAccText = (TextView) findViewById(R.id.yAccText);
-        zAccText = (TextView) findViewById(R.id.zAccText);
-        presText = (TextView) findViewById(R.id.pressText);
+//        //get our Sensor Mananger
+//        accSM = (SensorManager) getSystemService(SENSOR_SERVICE);
+//        presSM = (SensorManager) getSystemService(SENSOR_SERVICE);
+//
+//        //Assign Sensors
+//        accSensor = accSM.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+//        presSensor = presSM.getDefaultSensor(Sensor.TYPE_PRESSURE);
+//
+//        //Register Sensor Listener
+//        accSM.registerListener(this, accSensor, SensorManager.SENSOR_DELAY_NORMAL);
+//        presSM.registerListener(this, presSensor,SensorManager.SENSOR_DELAY_NORMAL);
+//
+//        //Assign TextView
+//        XAccText = (TextView) findViewById(R.id.xAccText);
+//        yAccText = (TextView) findViewById(R.id.yAccText);
+//        zAccText = (TextView) findViewById(R.id.zAccText);
+//        presText = (TextView) findViewById(R.id.pressText);
 
     }
 
@@ -105,4 +108,32 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         return super.onOptionsItemSelected(item);
     }
 
+    /*
+    Function is logging sensor values to the screen every X seconds
+    It uses a second thread to do this task
+     */
+    private void startLogging(){
+        final TextView tvOutput = (TextView) findViewById(R.id.textView);
+        new Thread() {
+            public void run() {
+                for (int i = 0; i < 1000; i++) {
+                    try {
+                        final SensorValue currentSensorValues = new SensorValue();
+                        runOnUiThread(new Runnable() {
+
+                            @Override
+                            public void run() {
+                                tvOutput.append(currentSensorValues.toString());
+                                tvOutput.append("\n\n");
+                            }
+                        });
+                        Thread.sleep(1000);
+
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }.start();
+    }
 }
