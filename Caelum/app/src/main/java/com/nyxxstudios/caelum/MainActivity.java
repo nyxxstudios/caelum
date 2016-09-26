@@ -15,6 +15,7 @@ import android.hardware.SensorManager;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 
+import android.widget.Button;
 import android.widget.TextView;
 
 
@@ -45,8 +46,13 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             }
         });
 
-
-        startLogging();
+        Button btnStart = (Button) findViewById(R.id.btnStart);
+        btnStart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startLogging();
+            }
+        });
 
 //        //get our Sensor Mananger
 //        accSM = (SensorManager) getSystemService(SENSOR_SERVICE);
