@@ -56,4 +56,22 @@ public class SensorValue {
         return df;
     }
 
+    @Override
+    public String toString() {
+        String result;
+
+        String timeAsString;
+        Calendar c = Calendar.getInstance();
+        timeAsString = time.format(c.getTime());
+
+        result = "Time: " + timeAsString + "\n" +
+                "Acceleration: \n" +
+                "X = " + accelerationValues[0] + "\n" +
+                "Y = " + accelerationValues[1] + "\n" +
+                "Z = " + accelerationValues[2] + "\n\n" +
+
+                "Pressure: " + pressure;
+
+        return result;
+    }
 }
