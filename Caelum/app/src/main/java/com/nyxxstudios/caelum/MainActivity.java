@@ -130,7 +130,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                             @Override
                             public void run() {
                                 tvOutput.append(currentSensorValues.toString());
-                                tvOutput.append("\n\n");
+                                tvOutput.append("\n-------------------------------------\n");
                             }
                         });
                         Thread.sleep(1000);

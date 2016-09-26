@@ -64,7 +64,7 @@ public class SensorValue {
         Calendar c = Calendar.getInstance();
         timeAsString = time.format(c.getTime());
 
-        result = "Time: " + timeAsString + "\n" +
+        result = "Time: " + timeAsString + "\n\n" +
                 "Acceleration: \n" +
                 "X = " + accelerationValues[0] + "\n" +
                 "Y = " + accelerationValues[1] + "\n" +
