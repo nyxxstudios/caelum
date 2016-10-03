@@ -24,10 +24,20 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
 
     private TextView XAccText, yAccText, zAccText, presText;
-    private Sensor accSensor;
-    private Sensor presSensor;
-    private SensorManager accSM;
-    private SensorManager presSM;
+
+    private SensorManager mSensorManager;
+    private Sensor mPressure;
+    private Sensor mAcceleration;
+
+    public static double getCurrentPressure() {
+        return currentPressure;
+    }
+    private static double currentPressure;
+
+    public static float[] getCurrentAcceleration() {
+        return currentAcceleration;
+    }
+    private static float[] currentAcceleration = new float[3];
 
 
     @Override
@@ -54,17 +64,29 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             }
         });
 
-//        //get our Sensor Mananger
-//        accSM = (SensorManager) getSystemService(SENSOR_SERVICE);
-//        presSM = (SensorManager) getSystemService(SENSOR_SERVICE);
-//
-//        //Assign Sensors
-//        accSensor = accSM.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-//        presSensor = presSM.getDefaultSensor(Sensor.TYPE_PRESSURE);
-//
-//        //Register Sensor Listener
-//        accSM.registerListener(this, accSensor, SensorManager.SENSOR_DELAY_NORMAL);
-//        presSM.registerListener(this, presSensor,SensorManager.SENSOR_DELAY_NORMAL);
+        Sensors.mainActivity = this;
+
+
+        //get our Sensor Mananger
+        mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+
+        //Assign Sensors
+        mAcceleration = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        mPressure = mSensorManager.getDefaultSensor(Sensor.TYPE_PRESSURE);;
+
+        if(mAcceleration == null){
+            //not available on this device
+            currentAcceleration = new float[]{Float.NEGATIVE_INFINITY,
+                    Float.NEGATIVE_INFINITY, Float.NEGATIVE_INFINITY};
+        }
+        if(mPressure == null){
+            //not available on this device
+            currentPressure = Float.NEGATIVE_INFINITY;
+        }
+
+        //Register Sensor Listener
+        mSensorManager.registerListener(this, mAcceleration, SensorManager.SENSOR_DELAY_NORMAL);
+        mSensorManager.registerListener(this, mPressure,SensorManager.SENSOR_DELAY_NORMAL);
 //
 //        //Assign TextView
 //        XAccText = (TextView) findViewById(R.id.xAccText);
@@ -83,12 +105,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     public void onSensorChanged(SensorEvent event) {
         Sensor sensor = event.sensor;
         if (sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
-            XAccText.setText("X: " + event.values[0]);
-            yAccText.setText("Y: " + event.values[1]);
-            zAccText.setText("Z: " + event.values[2]);
+            currentAcceleration = event.values;
         }
         else if (sensor.getType() == Sensor.TYPE_PRESSURE) {
-            presText.setText(event.values[0] + " hPa");
+            currentPressure = event.values[0];
         }
     }
 
@@ -142,4 +162,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             }
         }.start();
     }
+
+
 }

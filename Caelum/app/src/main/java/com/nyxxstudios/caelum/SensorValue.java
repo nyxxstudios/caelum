@@ -17,8 +17,8 @@ public class SensorValue {
     }
 
 
-    private double[] accelerationValues = new double[3]; //X, Y and Z
-    public double[] getAccelerationValues() {
+    private float[] accelerationValues = new float[3]; //X, Y and Z
+    public float[] getAccelerationValues() {
         return accelerationValues;
     }
 
@@ -36,9 +36,16 @@ public class SensorValue {
 
     //constructor. Defines variables with sensor values
     public SensorValue(){
+        Sensors sensors = new Sensors();
+
         time = currentDateAndTime(); //UTC
-        accelerationValues = new double[]{0,0,0}; //for testing, replace with function from Sensors.java
+        accelerationValues = new float[]{0,0,0}; //for testing, replace with function from Sensors.java
+        accelerationValues = MainActivity.getCurrentAcceleration();
         pressure = 1013.0;                        //for testing, replace with function from Sensors.java
+        System.out.println("0");
+        //pressure = sensors.getPressure();
+        pressure = MainActivity.getCurrentPressure();
+        System.out.println("6");
         height = 0.0;                             //for testing, replace with function from Sensors.java
 
     }

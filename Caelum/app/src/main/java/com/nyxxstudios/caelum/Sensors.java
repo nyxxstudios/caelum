@@ -16,26 +16,31 @@ import android.hardware.SensorEventListener;
 
 public class Sensors implements SensorEventListener {
 
-    public MainActivity mainActivity;
+    public static MainActivity mainActivity;
 
     public float getPressure() {
         Sensor presSensor;
         SensorManager presSM;
 
+        System.out.println("0.5");
         SensorEvent event = null;
+        System.out.println("0.6");
         Sensor sensor = event.sensor;
-
+        System.out.println("1");
         float pressure = 0;
         //get our Sensor Mananger
         presSM = (SensorManager) mainActivity.getSystemService(Context.SENSOR_SERVICE);
+        System.out.println("2");
         //Assign Sensors
         presSensor = presSM.getDefaultSensor(Sensor.TYPE_PRESSURE);
+        System.out.println("3");
         //register Listener
         presSM.registerListener(this, presSensor, SensorManager.SENSOR_DELAY_NORMAL);
-
+        System.out.println("4");
         pressure = event.values[0];
 
-        return pressure;
+        System.out.println("5");
+        return 1014.0f;//pressure;
     }
 
     public double[] getAcceleration() {
