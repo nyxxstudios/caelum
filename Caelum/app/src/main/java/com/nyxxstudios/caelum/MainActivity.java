@@ -23,8 +23,6 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
 
-    private TextView XAccText, yAccText, zAccText, presText;
-
     private SensorManager mSensorManager;
     private Sensor mPressure;
     private Sensor mAcceleration;
@@ -87,12 +85,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         //Register Sensor Listener
         mSensorManager.registerListener(this, mAcceleration, SensorManager.SENSOR_DELAY_NORMAL);
         mSensorManager.registerListener(this, mPressure,SensorManager.SENSOR_DELAY_NORMAL);
-//
-//        //Assign TextView
-//        XAccText = (TextView) findViewById(R.id.xAccText);
-//        yAccText = (TextView) findViewById(R.id.yAccText);
-//        zAccText = (TextView) findViewById(R.id.zAccText);
-//        presText = (TextView) findViewById(R.id.pressText);
 
     }
 
