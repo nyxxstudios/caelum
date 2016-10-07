@@ -58,6 +58,11 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(currentPressure != 0) {
+                    SensorValue.pressureAtGround = currentPressure;
+                }else{
+                    System.err.println("pressureAtGround not set correctly!");
+                }
                 startLogging();
             }
         });

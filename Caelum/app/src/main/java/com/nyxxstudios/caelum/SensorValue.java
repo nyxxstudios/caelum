@@ -11,6 +11,7 @@ public class SensorValue {
     //all 'sensor variables' don't need a setter, because they are just once defined
     // (in the constructor of this class) and their value is never changed from outside of this class
 
+    public static float pressureAtGround;
 
     private SimpleDateFormat time; //time of creation
     public SimpleDateFormat getTime() {
@@ -34,7 +35,7 @@ public class SensorValue {
         return height;
     }
 
-    private float pressureAtGround; //TODO has to be set at start in main routine
+
 
     //constructor. Defines variables with sensor values
     public SensorValue(){
