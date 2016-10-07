@@ -62,8 +62,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             }
         });
 
-        Sensors.mainActivity = this;
-
 
         //get our Sensor Mananger
         mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);

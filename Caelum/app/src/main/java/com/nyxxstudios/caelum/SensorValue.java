@@ -36,8 +36,6 @@ public class SensorValue {
 
     //constructor. Defines variables with sensor values
     public SensorValue(){
-        Sensors sensors = new Sensors();
-
         time = currentDateAndTime(); //UTC
         accelerationValues = new float[]{0,0,0}; //for testing, replace with function from Sensors.java
         accelerationValues = MainActivity.getCurrentAcceleration();
