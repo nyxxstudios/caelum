@@ -27,10 +27,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private Sensor mPressure;
     private Sensor mAcceleration;
 
-    public static double getCurrentPressure() {
+    public static float getCurrentPressure() {
         return currentPressure;
     }
-    private static double currentPressure;
+    private static float currentPressure;
 
     public static float[] getCurrentAcceleration() {
         return currentAcceleration;

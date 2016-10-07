@@ -1,5 +1,6 @@
 package com.nyxxstudios.caelum;
 
+import android.hardware.SensorManager;
 import android.icu.text.SimpleDateFormat;
 import android.icu.util.Calendar;
 
@@ -23,8 +24,8 @@ public class SensorValue {
     }
 
 
-    private double pressure; //current air pressure
-    public double getPressure() {
+    private float pressure; //current air pressure
+    public float getPressure() {
         return pressure;
     }
 
@@ -33,19 +34,25 @@ public class SensorValue {
         return height;
     }
 
+    private float pressureAtGround; //TODO has to be set at start in main routine
 
     //constructor. Defines variables with sensor values
     public SensorValue(){
         time = currentDateAndTime(); //UTC
-        accelerationValues = new float[]{0,0,0}; //for testing, replace with function from Sensors.java
+        accelerationValues = new float[]{0,0,0};
         accelerationValues = MainActivity.getCurrentAcceleration();
-        pressure = 1013.0;                        //for testing, replace with function from Sensors.java
         System.out.println("0");
         //pressure = sensors.getPressure();
         pressure = MainActivity.getCurrentPressure();
         System.out.println("6");
-        height = 0.0;                             //for testing, replace with function from Sensors.java
+        pressureAtGround = (float) 1013.25;
+        height = pressureToHeight(pressure, pressureAtGround);
+        }
 
+    public float pressureToHeight(float pressure, float pressureAtGround) {
+        float height = -100000;
+        height = SensorManager.getAltitude(pressure, pressureAtGround);
+        return height;
     }
 
     private SimpleDateFormat currentDateAndTime() {
@@ -75,7 +82,8 @@ public class SensorValue {
                 "Y = " + accelerationValues[1] + "\n" +
                 "Z = " + accelerationValues[2] + "\n\n" +
 
-                "Pressure: " + pressure;
+                "Pressure: " + pressure + "\n" +
+                "Height: " + height;
 
         return result;
     }
