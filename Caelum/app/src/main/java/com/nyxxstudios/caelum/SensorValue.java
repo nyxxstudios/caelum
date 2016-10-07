@@ -46,11 +46,11 @@ public class SensorValue {
         //pressure = sensors.getPressure();
         pressure = MainActivity.getCurrentPressure();
         System.out.println("6");
-        pressureAtGround = (float) 1013.25;
-        height = pressureToHeight(pressure, pressureAtGround);
+        //pressureAtGround = (float) 1013.25;
+        height = pressureToHeight(pressure);
         }
 
-    public float pressureToHeight(float pressure, float pressureAtGround) {
+    public float pressureToHeight(float pressure) {
         float height = -100000;
         height = SensorManager.getAltitude(pressure, pressureAtGround);
         return height;
