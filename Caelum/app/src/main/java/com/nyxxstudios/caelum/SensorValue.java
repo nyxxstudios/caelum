@@ -49,10 +49,8 @@ public class SensorValue {
         return height;
     }
 
-    public double[] location = new double[2]; //longitude, latitude
+    private double[] location = new double[2]; //longitude, latitude
     public double[] getLocation() {
-        location = MainActivity.getCurrentLocation();
-        //location = new double[]{(10), (10)};
         return location;
     }
 
@@ -62,13 +60,13 @@ public class SensorValue {
         accelerationValues = new float[]{0,0,0};
         accelerationValues = MainActivity.getCurrentAcceleration();
         System.out.println("0");
-        //pressure = sensors.getPressure();
         pressure = MainActivity.getCurrentPressure();
         System.out.println("6");
         //pressureAtGround = (float) 1013.25;
+        System.out.println("pressureAtGround = " + pressureAtGround);
         height = pressureToHeight(pressure);
-        //location = MainActivity.currentLocation;
-        location =getLocation();
+
+        location = MainActivity.getCurrentLocation();
         }
 
     public float pressureToHeight(float pressure) {
