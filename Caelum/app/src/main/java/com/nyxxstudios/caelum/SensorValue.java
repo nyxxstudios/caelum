@@ -4,6 +4,20 @@ import android.hardware.SensorManager;
 import android.icu.text.SimpleDateFormat;
 import android.icu.util.Calendar;
 
+//GPS classes
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.os.Build;
+import android.os.Bundle;
+import android.provider.Settings;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
+
 /**
  * Created by Jonas on 25.09.2016.
  */
@@ -35,7 +49,12 @@ public class SensorValue {
         return height;
     }
 
-
+    public double[] location = new double[2]; //longitude, latitude
+    public double[] getLocation() {
+        location = MainActivity.getCurrentLocation();
+        //location = new double[]{(10), (10)};
+        return location;
+    }
 
     //constructor. Defines variables with sensor values
     public SensorValue(){
@@ -48,12 +67,20 @@ public class SensorValue {
         System.out.println("6");
         //pressureAtGround = (float) 1013.25;
         height = pressureToHeight(pressure);
+        //location = MainActivity.currentLocation;
+        location =getLocation();
         }
 
     public float pressureToHeight(float pressure) {
         float height = -100000;
-        height = SensorManager.getAltitude(pressure, pressureAtGround);
+        height = SensorManager.getAltitude(pressureAtGround, pressure);
         return height;
+    }
+
+    public double[] getLocation(double[] location) {
+        //location = MainActivity.getCurrentLocation();
+        location = new double[]{(10), (10)};
+        return location;
     }
 
     private SimpleDateFormat currentDateAndTime() {
@@ -84,7 +111,8 @@ public class SensorValue {
                 "Z = " + accelerationValues[2] + "\n\n" +
 
                 "Pressure: " + pressure + "\n" +
-                "Height: " + height;
+                "Height: " + height + "\n\n" +
+                "Location: " + location[0] + ", "+ location[1];
 
         return result;
     }
