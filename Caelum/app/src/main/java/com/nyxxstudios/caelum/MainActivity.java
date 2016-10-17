@@ -135,8 +135,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         locationListener = new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
-                currentLocation[1] = location.getLongitude();
-                currentLocation[2] = location.getLatitude();
+                System.out.println("location changed");
+                currentLocation[0] = location.getLongitude();
+                currentLocation[1] = location.getLatitude();
             }
 
             @Override
