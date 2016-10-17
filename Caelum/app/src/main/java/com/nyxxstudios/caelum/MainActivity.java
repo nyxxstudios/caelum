@@ -15,6 +15,8 @@ import android.hardware.SensorManager;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 
+
+//UI classes
 import android.widget.Button;
 import android.widget.TextView;
 
