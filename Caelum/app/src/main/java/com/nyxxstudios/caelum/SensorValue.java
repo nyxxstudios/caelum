@@ -52,7 +52,7 @@ public class SensorValue {
 
     public float pressureToHeight(float pressure) {
         float height = -100000;
-        height = SensorManager.getAltitude(pressure, pressureAtGround);
+        height = SensorManager.getAltitude(pressureAtGround, pressure);
         return height;
     }
 
