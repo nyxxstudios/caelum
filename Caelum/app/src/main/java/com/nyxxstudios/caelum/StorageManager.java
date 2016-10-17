@@ -1,6 +1,12 @@
 package com.nyxxstudios.caelum;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Environment;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -17,19 +23,48 @@ import static android.content.Context.MODE_APPEND;
  * Created by Jonas on 07.10.2016.
  */
 
-public class StorageManager {
+public class StorageManager{
 
     private static final String LOG_TAG = "StorageManager";
+
+    //The path for the folder that is used for all saved data
+    private String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Caelum Data";
 
     /*Provides methods for saving .txt files to the (external) storage.
     The data that is being collected (a list of SensorValue objects and the photos) can be saved
     on an external storage (sd card) for later access on a computer.
 
-    Class uses only static functions, no objects of this class will be created.
+    Just one object will be created, the storageManager in the MainActivity.java
      */
 
+    public boolean isAccessAllowed = false;
+
+    public StorageManager(){
+        System.out.println("path = " + path);
+        File dir = new File(path);
+        dir.mkdirs();//creates folder, if not already existing
+
+        //check, that user allows permissions for read and write to external storage
+        isAccessAllowed = isAccessToExternalStorageAllowed();
+        System.out.println("access allowed: " + isAccessAllowed);
+    }
+
+    public boolean isAccessToExternalStorageAllowed(){
+        // first check for permissions
+        if ((ActivityCompat.checkSelfPermission(MainActivity.mainActivity, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) &&
+            (ActivityCompat.checkSelfPermission(MainActivity.mainActivity, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                System.out.println("request permission");
+                MainActivity.mainActivity.requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}
+                        ,20);
+            }
+            return false;
+        }
+        return true;
+    }
+
     /* Checks if external storage is available for read and write */
-    public static boolean isExternalStorageWritable() {
+    public boolean isExternalStorageWritable() {
         String state = Environment.getExternalStorageState();
         if (Environment.MEDIA_MOUNTED.equals(state)) {
             return true;
@@ -37,7 +72,7 @@ public class StorageManager {
         return false;
     }
 
-    public static File getAlbumStorageDir(String fileName) {
+    public File getAlbumStorageDir(String fileName) {
         // Get the directory for the user's public pictures directory.
         File file = new File(Environment.getExternalStoragePublicDirectory(
                 Environment.DIRECTORY_DOCUMENTS), fileName);
@@ -47,80 +82,43 @@ public class StorageManager {
         return file;
     }
 
-//    public static void savetext () {
-//        try {
-//
-//            OutputStreamWriter out = new OutputStreamWriter(getAlbumStorageDir("testFileJonas"));
-//            String text = "this is a sample text";
-//            out.write(text);
-//            out.write('\n');
-//            out.close();
-//            System.out.println("saved successfully");
-//
-//        } catch (Throwable t) {
-//
-//            Toast.makeText(this, "Exception: " + t.toString(), Toast.LENGTH_LONG).show();
-//
-//        }
-//        //Toast.makeText(this, "Save not implemented yet.", Toast.LENGTH_SHORT).show();
-//    }}
+    public void write(String[] data){
 
-    public static void writeToFile(String data)
-    {
-//        // Get the directory for the user's public pictures directory.
-//        final File path =
-//                Environment.getExternalStoragePublicDirectory
-//                        (
-//                                //Environment.DIRECTORY_PICTURES
-//                                Environment.DIRECTORY_DCIM + "/YourFolder/"
-//                        );
-//
-//        // Make sure the path directory exists.
-//        if(!path.exists())
-//        {
-//            // Make it, if it doesn't exit
-//            path.mkdirs();
-//        }
-
-        File root = Environment.getExternalStorageDirectory();
-        String path = root.getAbsolutePath() + "/CaelumFolder";
-
-        System.out.println("Path: " + path);
-
-        // Create the folder.
-        File folder = new File(path);
-        if (!folder.exists()) {
-            folder.mkdirs();
+        if(!isAccessAllowed){
+            System.err.println("access not allowed");
+            return;
         }
 
-        // Create the file.
-        final File file = new File(folder, "config.txt");
-
-//        final File file = new File(path, "config.txt");
-
-        // Save your stream, don't forget to flush() it before closing it.
-
+        File file = new File(path + "/logdata.txt");
+        FileOutputStream fos = null;
         try
         {
-            file.createNewFile();
-            FileOutputStream fOut = new FileOutputStream(file);
-
-            fOut.write(data.getBytes());
-
-            //OutputStreamWriter myOutWriter = new OutputStreamWriter(fOut);
-            //myOutWriter.append(data);
-            //myOutWriter.close();
-
-            fOut.flush();
-            fOut.close();
-
-            System.out.println("Message saved");
+            fos = new FileOutputStream(file);
         }
-        catch (IOException e)
+        catch (FileNotFoundException e) {e.printStackTrace();}
+        try
         {
-            Log.e("Exception", "File write failed: " + e.toString());
+            try
+            {
+                for (int i = 0; i<data.length; i++)
+                {
+                    fos.write(data[i].getBytes());
+                    if (i < data.length-1)
+                    {
+                        fos.write("\n".getBytes());
+                    }
+                }
+            }
+            catch (IOException e) {e.printStackTrace();}
+        }
+        finally
+        {
+            try
+            {
+                fos.close();
+            }
+            catch (IOException e) {e.printStackTrace();}
         }
     }
-
 
 }

@@ -67,7 +67,7 @@ public class SensorValue {
         height = pressureToHeight(pressure);
 
         location = MainActivity.getCurrentLocation();
-        }
+    }
 
     public float pressureToHeight(float pressure) {
         float height = -100000;

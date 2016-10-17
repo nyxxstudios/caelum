@@ -38,6 +38,7 @@ import android.widget.TextView;
 
 
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
+    public static MainActivity mainActivity;
 
     private SensorManager mSensorManager;
     private Sensor mPressure;
@@ -60,7 +61,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
 
     Button btnStart;
-
+    private StorageManager storageManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +78,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                         .setAction("Action", null).show();
             }
         });
+
+        mainActivity = this;
+        storageManager = new StorageManager();
 
         btnStart = (Button) findViewById(R.id.btnStart);
         btnStart.setOnClickListener(new View.OnClickListener() {
@@ -95,7 +99,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(StorageManager.isExternalStorageWritable()){
+                if(storageManager.isExternalStorageWritable()){
                     Log.d("TAG", "writable");
                     System.out.println("writable");
 
@@ -106,7 +110,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 saveButtonClicked();
             }
         });
-
 
         //get our Sensor Mananger
         mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
@@ -199,7 +202,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
     public void saveButtonClicked(){
-        StorageManager.writeToFile("Test data \nhello world \nauthor:Jonas");
+        storageManager.write(new String[]{"Test data", "hello world", "author:Jonas"});
     }
 
     /*
@@ -238,6 +241,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         switch (requestCode){
             case 10:
                 configure_button();
+                break;
+            case 20:
+                storageManager.isAccessAllowed = storageManager.isAccessToExternalStorageAllowed();
                 break;
             default:
                 break;
