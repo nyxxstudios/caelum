@@ -110,7 +110,7 @@ public class SensorValue {
 
                 "Pressure: " + pressure + "\n" +
                 "Height: " + height + "\n\n" +
-                "Location: " + location[0] + ", "+ location[1];
+                "Location: " + location[1] + ", "+ location[0];
 
         return result;
     }
